@@ -1,0 +1,30 @@
+{
+  "name": "react_ep4",
+  "version": "1.0.0",
+  "description": "This is React by Vaishnavi Raut",
+  "homepage": "https://github.com/Vaishnavi542-cell/React-Project1#readme",
+  "bugs": {
+    "url": "https://github.com/Vaishnavi542-cell/React-Project1/issues"
+  },
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vaishnavi542-cell/React-Project1.git"
+  },
+  "license": "ISC",
+  "keyword": [],
+  "author": "Vaishnavi Raut",
+  "devDependencies": {
+    "parcel": "^2.16.4"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.8",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-router-dom": "^6.22.3"
+  }
+}
