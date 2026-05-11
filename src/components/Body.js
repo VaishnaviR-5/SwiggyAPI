@@ -4,7 +4,7 @@ import resList from "../../utils/mockData";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
-
+import useOnlineStatus from "../../utils/useOnlineStatus";
 
 const Body = () => {
   //Local state variable = super powerfull variable
@@ -30,39 +30,47 @@ const Body = () => {
   //     }
   //     const json = await data.json();
   //     console.log(json);
-      //Optional chaining
-      // const restaurants = json?.data?.cards?.find(
-      //   (card) => card?.card?.card?.gridElements?.infoWithStyle?.restaurants,
-      // )?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+  //Optional chaining
+  // const restaurants = json?.data?.cards?.find(
+  //   (card) => card?.card?.card?.gridElements?.infoWithStyle?.restaurants,
+  // )?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
 
-      // console.log(restaurants);
+  // console.log(restaurants);
 
-      // setListOfRestaurants(Array.isArray(restaurants) ? restaurants : []);
+  // setListOfRestaurants(Array.isArray(restaurants) ? restaurants : []);
 
-      // const filterRestaurants = json?.data?.cards?.find(
-      //   (card) => card?.card?.card?.gridElements?.infoWithStyle?.restaurants,
-      // )?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+  // const filterRestaurants = json?.data?.cards?.find(
+  //   (card) => card?.card?.card?.gridElements?.infoWithStyle?.restaurants,
+  // )?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
 
-      // setFilteredRestaurants(
-      //   Array.isArray(filterRestaurants) ? filterRestaurants : [],
-      // );
-      // setListOfRestaurants(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
+  // setFilteredRestaurants(
+  //   Array.isArray(filterRestaurants) ? filterRestaurants : [],
+  // );
+  // setListOfRestaurants(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
   //   } catch (error) {
   //     console.log("Error:", error);
   //   }
   // };
 
   useEffect(() => {
-    const restaurants = 
-    resList?.[0]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
+    const restaurants =
+      resList?.[0]?.card?.card?.gridElements?.infoWithStyle?.restaurants || [];
     setListOfRestaurants(restaurants);
-  setFilteredRestaurants(restaurants);
+    setFilteredRestaurants(restaurants);
   }, []);
+
+  const onlineStatus = useOnlineStatus();
+  if (onlineStatus === false)
+    return (
+      <h1>
+        Looks like you're offline!! please check you're internet connection.
+      </h1>
+    );
   //Conditional Rendering
 
   console.log("listOfRestaurants: ", listOfRestaurants);
   console.log("Mock Data: ", resList);
-       
+
   return listOfRestaurants.length === 0 ? (
     <Shimmer />
   ) : (
@@ -86,7 +94,6 @@ const Body = () => {
               );
               setFilteredRestaurants(filteredRestaurant);
               console.log(searchText);
-              
             }}
           >
             Search
@@ -106,17 +113,16 @@ const Body = () => {
       </div>
       <div className="restaurant-container">
         {filteredRestaurants.map((restaurant) => {
-          if(!restaurant?.info) return null;
-         return (
-          <Link  key={restaurant.info.id} to={"/restaurants/" + restaurant.info.id}>
-            <RestaurantCard resData={restaurant} />
+          if (!restaurant?.info) return null;
+          return (
+            <Link
+              key={restaurant.info.id}
+              to={"/restaurants/" + restaurant.info.id}
+            >
+              <RestaurantCard resData={restaurant} />
             </Link>
-  
-
-    )
-  }
-  )
-        }
+          );
+        })}
       </div>
     </div>
   );

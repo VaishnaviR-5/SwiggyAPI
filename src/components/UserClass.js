@@ -9,6 +9,7 @@ class UserClass extends React.Component {
             userInfo: {
                 name: "Dummy",
                 location: "Default",
+                avatar_url: "htp://dummy-photo.com",
             }
         };
         //console.log("Child Constructor");
@@ -16,8 +17,12 @@ class UserClass extends React.Component {
 
    async componentDidMount() {
         //console.log("Child Component Did Mount");
+      
+        const data = await fetch("https://api.github.com/users/VaishnaviR-5");
 
-        const data = await fetch("https://api.github.com/users/Vaishnavi542-Cell");
+        headers: {
+            Authorization: `token ${GITHUB_TOKEN}`
+        }
         const json = await data.json();
 
         this.setState({
@@ -28,12 +33,12 @@ class UserClass extends React.Component {
     }
     render () {
        
-        const { name,location } = this.state.userInfo;
+        const { name, location, avatar_url } = this.state.userInfo;
       
         // console.log("Child Render");
         return (
     <div className="user-card">
-   
+         <img src={avatar_url} />
         <h2>Name: {name}</h2>
         <h3>Location: {location}</h3>
         <h4>Contact: @vaishnavir5</h4>
